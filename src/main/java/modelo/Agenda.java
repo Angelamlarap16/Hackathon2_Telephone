@@ -67,10 +67,10 @@ public class Agenda {
 
 
     public boolean añadirContacto(Contacto c) {
-        if (!agendaLlena()
-                && !existeContacto(c)
-                && !c.getNombre().isBlank()
-                && !c.getApellido().isBlank()) {
+        if(!Contacto.validarTelefono(c.getTelefono())){ return false;}
+        if(!Contacto.validarNombreApellido(c.getNombre(),c.getApellido())){return false;}
+
+        if (!agendaLlena() && !existeContacto(c)) {
             contactos.add(c);
             return true;
         }

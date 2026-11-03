@@ -20,15 +20,16 @@ public class Contacto {
     }
 //Validación de nombres y apellidos obligatorios
 
-    public void validarNombreApellido(String nombre, String apellido) {
+    public static boolean  validarNombreApellido(String nombre, String apellido) {
         if (nombre == null || nombre.isBlank()) {
             System.out.println("No puede estar vacio el nombre");
-            return;
+            return false;
         }
         if (apellido == null || apellido.isBlank()) {
             System.out.println("No puede estar vacio el apellido");
-            return;
+            return false ;
         }
+        return true;
     }
 
 //Validación de Telefono con Regex
