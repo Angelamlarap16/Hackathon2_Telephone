@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -66,18 +65,26 @@ public class Agenda {
         return this.capacidadMaxima - this.contactos.size();
     }
 
-    public void añadirContacto (Contacto c) {
-        if ( !agendaLlena( )) {
+
+    public boolean añadirContacto(Contacto c) {
+        if (!agendaLlena()
+                && !existeContacto(c)
+                && !c.getNombre().isBlank()
+                && !c.getApellido().isBlank()) {
             contactos.add(c);
+            return true;
         }
+        return false;
     }
+
     public boolean existeContacto (Contacto c) {
         return contactos.contains(c);
     }
 
     public List<Contacto> listarContactos() {
-        contactos.sort(Comparator.comparing(Contacto::getNombre));
-      return contactos;
+        List<Contacto> ordenada = new ArrayList<>(contactos);
+        ordenada.sort(Comparator.comparing(Contacto::getNombre, String.CASE_INSENSITIVE_ORDER));
+        return ordenada;
     }
 }
 
