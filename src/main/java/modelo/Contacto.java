@@ -1,7 +1,8 @@
 package modelo;
 
 import java.util.Objects;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class Contacto {
 
     // atributos privados de la clase contacto
@@ -21,11 +22,11 @@ public class Contacto {
 
     private void ValidarNombreApellido(String nombre, String apellido) {
         if (nombre == null || nombre.isBlank()) {
-            system.out.println("No puede estar vacio el nombre")
+            System.out.println("No puede estar vacio el nombre");
             return;
         }
         if (apellido == null || apellido.isBlank()) {
-            system.out.println("No puede estar vacio el apellido")
+            System.out.println("No puede estar vacio el apellido");
             return;
         }
     }
@@ -37,16 +38,16 @@ public class Contacto {
         String regex2 = "^\\d{9}$";
         boolean esValidoDirecto = telefono.matches(regex1)|| telefono.matches(regex2);
        if (!esValidoDirecto) {
-           system.out.println("el número es inválido estructura válida: validos: +34 600 000 000 o 600000000")
+           System.out.println("el número es inválido estructura válida: validos: +34 600 000 000 o 600000000");
            return;
        }
     }
 //Validar con equals que los contactos no pueden repetirse
 
     @Override
-    public boolean equals(Contacto o) {
+    public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Contacto contacto = o;
+        Contacto contacto = (Contacto) o;
         return Objects.equals(nombre, contacto.nombre) && Objects.equals(apellido, contacto.apellido);
     }
 
@@ -54,6 +55,7 @@ public class Contacto {
     public int hashCode() {
         return Objects.hash(nombre, apellido);
     }
+
 
 
 
@@ -90,4 +92,5 @@ public class Contacto {
 
         return String.format("Nombre: " + nombre + ", Apellido: " + apellido + ", Telefono: " + telefono);
     }
+
 }
