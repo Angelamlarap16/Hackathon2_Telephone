@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Contacto {
 
     // atributos privados de la clase contacto
@@ -15,6 +17,45 @@ public class Contacto {
         this.apellido = apellido;
         this.telefono = telefono;
     }
+//Validación de nombres y apellidos obligatorios
+
+    private void ValidarNombreApellido(String nombre, String apellido) {
+        if (nombre == null || nombre.isBlank()) {
+            system.out.println("No puede estar vacio el nombre")
+            return;
+        }
+        if (apellido == null || apellido.isBlank()) {
+            system.out.println("No puede estar vacio el apellido")
+            return;
+        }
+    }
+
+//Validación de Telefono con Regex
+    private void ValidarTelefono(String telefono){
+        //validos: +34 600 000 000 o 600000000
+        String regex1 = "^+\\d{2} \\d{3} \\d{3} \\d{3}$";
+        String regex2 = "^\\d{9}$";
+        boolean esValidoDirecto = telefono.matches(regex1)|| telefono.matches(regex2);
+       if (!esValidoDirecto) {
+           system.out.println("el número es inválido estructura válida: validos: +34 600 000 000 o 600000000")
+           return;
+       }
+    }
+//Validar con equals que los contactos no pueden repetirse
+
+    @Override
+    public boolean equals(Contacto o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Contacto contacto = o;
+        return Objects.equals(nombre, contacto.nombre) && Objects.equals(apellido, contacto.apellido);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, apellido);
+    }
+
+
 
     // getters
 
