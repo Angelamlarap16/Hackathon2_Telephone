@@ -20,7 +20,7 @@ public class Contacto {
     }
 //Validación de nombres y apellidos obligatorios
 
-    private void ValidarNombreApellido(String nombre, String apellido) {
+    public void validarNombreApellido(String nombre, String apellido) {
         if (nombre == null || nombre.isBlank()) {
             System.out.println("No puede estar vacio el nombre");
             return;
@@ -32,15 +32,21 @@ public class Contacto {
     }
 
 //Validación de Telefono con Regex
-    private void ValidarTelefono(String telefono){
+    public static boolean validarTelefono(String telefono){
+        if (telefono == null) return false; //Si viene un número vacio / null, retorna falso
+
         //validos: +34 600 000 000 o 600000000
-        String regex1 = "^+\\d{2} \\d{3} \\d{3} \\d{3}$";
+        String regex1 = "^\\+\\d{2} \\d{3} \\d{3} \\d{3}$";
         String regex2 = "^\\d{9}$";
-        boolean esValidoDirecto = telefono.matches(regex1)|| telefono.matches(regex2);
-       if (!esValidoDirecto) {
-           System.out.println("el número es inválido estructura válida: validos: +34 600 000 000 o 600000000");
-           return;
-       }
+       // boolean esValidoDirecto = telefono.matches(regex1)|| telefono.matches(regex2);
+
+//        if (!esValidoDirecto) {
+//           //System.out.println("el número es inválido estructura válida: validos: +34 600 000 000 o 600000000");
+//           return esValidoDirecto;
+//       }
+
+        return telefono.matches(regex1)|| telefono.matches(regex2);
+
     }
 //Validar con equals que los contactos no pueden repetirse
 
@@ -48,15 +54,12 @@ public class Contacto {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Contacto contacto = (Contacto) o;
-        return Objects.equals(nombre, contacto.nombre) && Objects.equals(apellido, contacto.apellido);
+        return nombre.equalsIgnoreCase(contacto.nombre) && apellido.equalsIgnoreCase(contacto.apellido);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombre, apellido);
-    }
-
-
+        return Objects.hash(nombre.toLowerCase(), apellido.toLowerCase());    }
 
 
     // getters

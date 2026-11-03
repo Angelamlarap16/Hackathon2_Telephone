@@ -22,6 +22,41 @@ public class Agenda {
         this.capacidadMaxima = capacidadMaxima;
     }
 
+
+    //Buscar Contacto:
+
+    public String buscarContacto(String nombre, String apellido){
+
+        for (Contacto contacto: contactos){
+            if(contacto.getNombre().equalsIgnoreCase(nombre) && contacto.getApellido().equalsIgnoreCase(apellido)){
+                return contacto.getTelefono();
+            }
+        }
+        return null;
+    }
+
+    //Eliminar contacto
+    public void eliminarContacto(Contacto c){
+
+        contactos.remove(c);
+    }
+
+    //Modificar Telefono
+
+
+    public void modificarTelefono(String nombre, String apellido, String nuevoTelefono){
+
+        if(!Contacto.validarTelefono(nuevoTelefono)) return;
+
+        for (Contacto contacto: contactos){
+            if(contacto.getNombre().equalsIgnoreCase(nombre) && contacto.getApellido().equalsIgnoreCase(apellido)){
+
+                contacto.setTelefono(nuevoTelefono);
+                return;
+            }
+        }
+
+    }
     // Métodos agendaLlena() y espaciosLibres()
     public boolean agendaLlena(){
         return this.contactos.size() >= this.capacidadMaxima;
